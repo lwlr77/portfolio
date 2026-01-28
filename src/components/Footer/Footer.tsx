@@ -1,6 +1,9 @@
+"use client";
+
 import { Row, IconButton, SmartLink, Text } from "@once-ui-system/core";
 import { person, social } from "@/resources";
 import styles from "./Footer.module.scss";
+import posthog from "posthog-js";
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -36,6 +39,12 @@ export const Footer = () => {
                   tooltip={item.name}
                   size="s"
                   variant="ghost"
+                  onClick={() =>
+                    posthog.capture("footer_social_clicked", {
+                      link_name: item.name,
+                      link_url: item.link,
+                    })
+                  }
                 />
               ),
           )}

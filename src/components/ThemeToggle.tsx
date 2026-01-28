@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Row, ToggleButton, useTheme } from "@once-ui-system/core";
+import posthog from "posthog-js";
 
 interface ThemeToggleProps {
   className?: string;
@@ -16,29 +17,37 @@ export const ThemeToggle = ({ className, size }: ThemeToggleProps) => {
   useEffect(() => {
     setMounted(true);
     setCurrentTheme(document.documentElement.getAttribute("data-theme") || "light");
-    
+
     // Listen to theme changes
     const updateTheme = () => {
       setCurrentTheme(document.documentElement.getAttribute("data-theme") || "light");
     };
-    
+
     // Use MutationObserver to watch for theme attribute changes
     const observer = new MutationObserver(updateTheme);
     observer.observe(document.documentElement, {
       attributes: true,
       attributeFilter: ["data-theme"],
     });
-    
+
     return () => observer.disconnect();
   }, []);
 
   const icon = currentTheme === "dark" ? "light" : "dark";
   const nextTheme = currentTheme === "light" ? "dark" : "light";
 
+  const handleThemeToggle = () => {
+    setTheme(nextTheme);
+    posthog.capture("theme_toggled", {
+      from_theme: currentTheme,
+      to_theme: nextTheme,
+    });
+  };
+
   return (
     <ToggleButton
       prefixIcon={icon}
-      onClick={() => setTheme(nextTheme)}
+      onClick={handleThemeToggle}
       aria-label={`Switch to ${nextTheme} mode`}
       size={size}
       className={className}

@@ -1,18 +1,12 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import {
-  Fade,
-  Flex,
-  Line,
-  Row,
-  ToggleButton,
-  IconButton,
-} from "@once-ui-system/core";
+import { Fade, Flex, Line, Row, ToggleButton, IconButton } from "@once-ui-system/core";
 
 import { routes, display, person, sections } from "@/resources";
 import { ThemeToggle } from "../ThemeToggle";
 import styles from "./Navbar.module.scss";
+import posthog from "posthog-js";
 
 // Small, contained time display used on large screens
 const TimeDisplay: React.FC<{ timeZone: string; locale?: string }> = ({
@@ -48,9 +42,7 @@ export const Navbar: React.FC = () => {
     if (typeof window === "undefined") return;
 
     const ids = ["hero", ...sections.filter((s) => s.display).map((s) => s.id)];
-    const els = ids
-      .map((id) => document.getElementById(id))
-      .filter(Boolean) as HTMLElement[];
+    const els = ids.map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
     if (els.length === 0) return;
 
     const observer = new IntersectionObserver(
@@ -72,28 +64,47 @@ export const Navbar: React.FC = () => {
           setActiveSection(id);
         }
       },
-      { root: null, rootMargin: "-20% 0px -20% 0px", threshold: [0, 0.25, 0.5, 0.75, 1] }
+      { root: null, rootMargin: "-20% 0px -20% 0px", threshold: [0, 0.25, 0.5, 0.75, 1] },
     );
 
-  for (const el of els) observer.observe(el);
+    for (const el of els) observer.observe(el);
     return () => observer.disconnect();
   }, []);
 
-  const scrollToId = (id: string) => () => {
+  const scrollToId = (id: string, label?: string) => () => {
     if (typeof window === "undefined") return;
     const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      posthog.capture("section_navigated", {
+        section_id: id,
+        section_label: label || id,
+      });
+    }
   };
 
   const scrollToTop = () => {
     if (typeof window === "undefined") return;
     window.scrollTo({ top: 0, behavior: "smooth" });
+    posthog.capture("section_navigated", {
+      section_id: "top",
+      section_label: "Home",
+    });
   };
 
   return (
     <>
       <Fade s={{ hide: true }} fillWidth position="fixed" height="80" zIndex={9} />
-      <Fade hide s={{ hide: false }} fillWidth position="fixed" bottom="0" to="top" height="80" zIndex={9} />
+      <Fade
+        hide
+        s={{ hide: false }}
+        fillWidth
+        position="fixed"
+        bottom="0"
+        to="top"
+        height="80"
+        zIndex={9}
+      />
       <Row
         fitHeight
         className={styles.position}
@@ -110,17 +121,30 @@ export const Navbar: React.FC = () => {
           {display.location && <Row s={{ hide: true }}>{person.location}</Row>}
         </Row>
         <Row fillWidth horizontal="center" padding="4" s={{ paddingX: "2" }}>
-          <Row 
-            background="page" 
-            border="neutral-alpha-weak" 
-            radius="m-4" 
-            shadow="l" 
-            padding="4" 
-            horizontal="center" 
-            zIndex={1} 
-            s={{ paddingY: "20", paddingX: "4", fillWidth: true, radius: "l", marginX: "0", maxWidth: "none" }}
+          <Row
+            background="page"
+            border="neutral-alpha-weak"
+            radius="m-4"
+            shadow="l"
+            padding="4"
+            horizontal="center"
+            zIndex={1}
+            s={{
+              paddingY: "20",
+              paddingX: "4",
+              fillWidth: true,
+              radius: "l",
+              marginX: "0",
+              maxWidth: "none",
+            }}
           >
-            <Row gap="4" vertical="center" textVariant="body-default-s" suppressHydrationWarning s={{ gap: "24", fillWidth: true, horizontal: "space-around" }}>
+            <Row
+              gap="4"
+              vertical="center"
+              textVariant="body-default-s"
+              suppressHydrationWarning
+              s={{ gap: "24", fillWidth: true, horizontal: "space-around" }}
+            >
               {routes["/"] && (
                 <>
                   <Row s={{ hide: true }}>
@@ -142,31 +166,33 @@ export const Navbar: React.FC = () => {
                 </>
               )}
               <Line background="neutral-alpha-medium" vert maxHeight="24" />
-              {sections.filter((s) => s.display).map((s, index) => (
-                <React.Fragment key={s.id}>
-                  {index > 0 && <div style={{ width: 4 }} />}
-                  <Row s={{ hide: true }}>
-                    <ToggleButton
-                      prefixIcon={s.icon}
-                      label={s.label}
-                      selected={activeSection === s.id}
-                      onClick={scrollToId(s.id)}
-                      className={styles.navLink}
-                      aria-current={activeSection === s.id ? "true" : undefined}
-                    />
-                  </Row>
-                  <Row hide s={{ hide: false }}>
-                    <ToggleButton
-                      size="l"
-                      prefixIcon={s.icon}
-                      selected={activeSection === s.id}
-                      onClick={scrollToId(s.id)}
-                      aria-label={s.label}
-                      className={styles.mobileNavIcon}
-                    />
-                  </Row>
-                </React.Fragment>
-              ))}
+              {sections
+                .filter((s) => s.display)
+                .map((s, index) => (
+                  <React.Fragment key={s.id}>
+                    {index > 0 && <div style={{ width: 4 }} />}
+                    <Row s={{ hide: true }}>
+                      <ToggleButton
+                        prefixIcon={s.icon}
+                        label={s.label}
+                        selected={activeSection === s.id}
+                        onClick={scrollToId(s.id, s.label)}
+                        className={styles.navLink}
+                        aria-current={activeSection === s.id ? "true" : undefined}
+                      />
+                    </Row>
+                    <Row hide s={{ hide: false }}>
+                      <ToggleButton
+                        size="l"
+                        prefixIcon={s.icon}
+                        selected={activeSection === s.id}
+                        onClick={scrollToId(s.id, s.label)}
+                        aria-label={s.label}
+                        className={styles.mobileNavIcon}
+                      />
+                    </Row>
+                  </React.Fragment>
+                ))}
               {display.themeSwitcher && (
                 <>
                   <Line background="neutral-alpha-medium" vert maxHeight="24" />
@@ -182,8 +208,16 @@ export const Navbar: React.FC = () => {
           </Row>
         </Row>
         <Flex fillWidth horizontal="end" vertical="center">
-          <Flex paddingRight="12" horizontal="end" vertical="center" textVariant="body-default-s" gap="20">
-            <Flex s={{ hide: true }}>{display.time && <TimeDisplay timeZone={person.location} />}</Flex>
+          <Flex
+            paddingRight="12"
+            horizontal="end"
+            vertical="center"
+            textVariant="body-default-s"
+            gap="20"
+          >
+            <Flex s={{ hide: true }}>
+              {display.time && <TimeDisplay timeZone={person.location} />}
+            </Flex>
           </Flex>
         </Flex>
       </Row>

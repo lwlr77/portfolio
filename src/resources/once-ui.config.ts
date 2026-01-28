@@ -142,7 +142,6 @@ const effects: EffectsConfig = {
   },
 };
 
-
 // default schema data
 // const schema: SchemaConfig = {
 //   logo: "",

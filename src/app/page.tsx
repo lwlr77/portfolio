@@ -23,22 +23,25 @@ import type { SectionConfig } from "@/types";
 import styles from "@/components/about/about.module.scss";
 import { Popup } from "@/components";
 import React from "react";
+import posthog from "posthog-js";
 
 export default function About() {
   const structure: SectionConfig[] = sections;
   type Img = { src: string; alt?: string; width: number; height: number };
   const projectImages: Img[] = [
-    ...about.work.experiences.reduce((acc: Img[], exp) => acc.concat(exp.images || []), [] as Img[]),
-    ...about.technical.skills.reduce((acc: Img[], skill) => acc.concat(skill.images || []), [] as Img[]),
+    ...about.work.experiences.reduce(
+      (acc: Img[], exp) => acc.concat(exp.images || []),
+      [] as Img[],
+    ),
+    ...about.technical.skills.reduce(
+      (acc: Img[], skill) => acc.concat(skill.images || []),
+      [] as Img[],
+    ),
   ];
-  
+
   return (
-      <Column id="top" maxWidth="m">
-      <Popup 
-        display={popup.display} 
-        title={popup.title} 
-        description={popup.description} 
-      />
+    <Column id="top" maxWidth="m">
+      <Popup display={popup.display} title={popup.title} description={popup.description} />
       <Schema
         as="webPage"
         baseURL={baseURL}
@@ -52,7 +55,7 @@ export default function About() {
           image: `${baseURL}${person.avatar}`,
         }}
       />
-      <Row fillWidth s={{ direction: "column"}} horizontal="center">
+      <Row fillWidth s={{ direction: "column" }} horizontal="center">
         {about.avatar.display && (
           <Column
             className={styles.avatar}
@@ -85,13 +88,7 @@ export default function About() {
           </Column>
         )}
         <Column className={styles.blockAlign} flex={9} maxWidth={40}>
-          <Column
-            id="hero"
-            fillWidth
-            minHeight="160"
-            vertical="center"
-            marginBottom="32"
-          >
+          <Column id="hero" fillWidth minHeight="160" vertical="center" marginBottom="32">
             <Heading className={styles.textAlign} variant="display-strong-xl">
               {person.name}
             </Heading>
@@ -126,6 +123,13 @@ export default function About() {
                             size="s"
                             weight="default"
                             variant="secondary"
+                            onClick={() =>
+                              posthog.capture("social_link_clicked", {
+                                link_name: item.name,
+                                link_url: item.link,
+                                location: "hero",
+                              })
+                            }
                           />
                         </Row>
                         <Row hide s={{ hide: false }}>
@@ -135,6 +139,13 @@ export default function About() {
                             href={item.link}
                             icon={item.icon}
                             variant="secondary"
+                            onClick={() =>
+                              posthog.capture("social_link_clicked", {
+                                link_name: item.name,
+                                link_url: item.link,
+                                location: "hero",
+                              })
+                            }
                           />
                         </Row>
                       </React.Fragment>
@@ -167,18 +178,20 @@ export default function About() {
                         </RevealFx>
                         {/* VERSION 4: Large Icon Cards - 4 per row with hover animation */}
                         <div style={{ width: "100%", marginTop: "4px" }}>
-                          <div style={{ 
-                            display: "flex", 
-                            flexDirection: "row",
-                            flexWrap: "wrap", 
-                            gap: "12px",
-                            width: "100%"
-                          }}>
-                            {about.technical.skills.flatMap((skill, skillIndex) => 
+                          <div
+                            style={{
+                              display: "flex",
+                              flexDirection: "row",
+                              flexWrap: "wrap",
+                              gap: "12px",
+                              width: "100%",
+                            }}
+                          >
+                            {about.technical.skills.flatMap((skill, skillIndex) =>
                               skill.tags?.map((tag, tagIndex) => (
-                                <div 
+                                <div
                                   key={`${tag.name}-${skillIndex}-${tagIndex}`}
-                                  style={{ 
+                                  style={{
                                     flex: "0 0 calc(25% - 9px)",
                                     height: "110px",
                                     display: "flex",
@@ -187,7 +200,11 @@ export default function About() {
                                   }}
                                   className="skill-tile-responsive"
                                 >
-                                  <RevealFx translateY={6} delay={0.06} style={{ width: "100%", height: "100%" }}>
+                                  <RevealFx
+                                    translateY={6}
+                                    delay={0.06}
+                                    style={{ width: "100%", height: "100%" }}
+                                  >
                                     <Column
                                       background="neutral-alpha-weak"
                                       border="neutral-alpha-medium"
@@ -198,39 +215,40 @@ export default function About() {
                                       vertical="center"
                                       fillWidth
                                       fillHeight
-                                      style={{ 
+                                      style={{
                                         transition: "all 0.3s ease",
                                         cursor: "pointer",
                                       }}
                                       onMouseEnter={(e) => {
                                         e.currentTarget.style.transform = "translateY(-8px)";
-                                        e.currentTarget.style.boxShadow = "0 12px 24px rgba(0, 0, 0, 0.15)";
+                                        e.currentTarget.style.boxShadow =
+                                          "0 12px 24px rgba(0, 0, 0, 0.15)";
                                       }}
                                       onMouseLeave={(e) => {
                                         e.currentTarget.style.transform = "translateY(0)";
                                         e.currentTarget.style.boxShadow = "none";
                                       }}
                                     >
-                                    <Column
-                                      background="brand-alpha-weak"
-                                      border="brand-alpha-medium"
-                                      radius="m"
-                                      padding="8"
-                                      style={{ transition: "all 0.3s ease" }}
-                                    >
-                                      <Icon 
-                                        name={tag.icon || "checkmark"} 
-                                        size="m" 
-                                        onBackground="brand-medium" 
-                                      />
+                                      <Column
+                                        background="brand-alpha-weak"
+                                        border="brand-alpha-medium"
+                                        radius="m"
+                                        padding="8"
+                                        style={{ transition: "all 0.3s ease" }}
+                                      >
+                                        <Icon
+                                          name={tag.icon || "checkmark"}
+                                          size="m"
+                                          onBackground="brand-medium"
+                                        />
+                                      </Column>
+                                      <Text variant="body-default-xs" align="center">
+                                        {tag.name}
+                                      </Text>
                                     </Column>
-                                    <Text variant="body-default-xs" align="center">
-                                      {tag.name}
-                                    </Text>
-                                  </Column>
-                                </RevealFx>
+                                  </RevealFx>
                                 </div>
-                              ))
+                              )),
                             )}
                           </div>
                         </div>
@@ -283,7 +301,7 @@ export default function About() {
                           )}
                         </Column>
                         <Column fillWidth gap="l">
-                          {about.work.experiences.map((experience: any) => (
+                          {about.work.experiences.map((experience: any) =>
                             experience.highlighted ? (
                               <Column
                                 key={experience.company}
@@ -311,17 +329,13 @@ export default function About() {
                                   )}
                                 </Column>
                                 {experience.description && (
-                                  <Text variant="body-default-m">
-                                    {experience.description}
-                                  </Text>
+                                  <Text variant="body-default-m">{experience.description}</Text>
                                 )}
                               </Column>
                             ) : (
                               <Column key={experience.company} fillWidth gap="4">
                                 <Row gap="8" wrap>
-                                  <Text variant="heading-strong-l">
-                                    {experience.role}
-                                  </Text>
+                                  <Text variant="heading-strong-l">{experience.role}</Text>
                                   <Text variant="heading-default-l" onBackground="neutral-weak">
                                     @ {experience.company}
                                   </Text>
@@ -335,8 +349,8 @@ export default function About() {
                                   {experience.description}
                                 </Text>
                               </Column>
-                            )
-                          ))}
+                            ),
+                          )}
                         </Column>
                       </Column>
                     )
@@ -359,6 +373,12 @@ export default function About() {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 style={{ flex: "1 1 280px", minWidth: 260, maxWidth: 420 }}
+                                onClick={() =>
+                                  posthog.capture("project_link_clicked", {
+                                    project_title: link.title,
+                                    project_url: link.url,
+                                  })
+                                }
                               >
                                 <RevealFx translateY={6}>
                                   <Column
@@ -370,7 +390,8 @@ export default function About() {
                                     fillWidth
                                     style={{ transition: "box-shadow .2s ease" }}
                                     onMouseEnter={(e) => {
-                                      (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 18px rgba(0,0,0,.12)";
+                                      (e.currentTarget as HTMLElement).style.boxShadow =
+                                        "0 8px 18px rgba(0,0,0,.12)";
                                     }}
                                     onMouseLeave={(e) => {
                                       (e.currentTarget as HTMLElement).style.boxShadow = "none";
@@ -397,7 +418,9 @@ export default function About() {
                             ))}
                           </Row>
                         ) : (
-                          <Text variant="body-default-m" onBackground="neutral-weak">No projects to show yet.</Text>
+                          <Text variant="body-default-m" onBackground="neutral-weak">
+                            No projects to show yet.
+                          </Text>
                         )}
                         <Row horizontal="center" paddingTop="m">
                           <Button
@@ -408,6 +431,11 @@ export default function About() {
                             prefixIcon="github"
                             label="View All My Projects on GitHub"
                             size="l"
+                            onClick={() =>
+                              posthog.capture("github_profile_clicked", {
+                                github_username: person.github,
+                              })
+                            }
                           />
                         </Row>
                       </Column>
@@ -444,7 +472,9 @@ export default function About() {
                             ))}
                           </Row>
                         ) : (
-                          <Text variant="body-default-m" onBackground="neutral-weak">No projects to show yet.</Text>
+                          <Text variant="body-default-m" onBackground="neutral-weak">
+                            No projects to show yet.
+                          </Text>
                         )}
                       </Column>
                     </Column>

@@ -23,6 +23,7 @@
     "lint-staged": "^16.1.5",
     "next": "15.5.9",
     "next-mdx-remote": "^5.0.0",
+    "posthog-js": "^1.335.5",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-icons": "^5.5.0",

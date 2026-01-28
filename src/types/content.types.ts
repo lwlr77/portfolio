@@ -72,7 +72,6 @@ export interface BasePageConfig {
   image?: `/images/${string}` | string;
 }
 
-
 /**
  * About page configuration.
  * @description Configuration for the About page, including sections for table of contents, avatar, calendar, introduction, work experience, studies, and technical skills.
@@ -157,7 +156,7 @@ export interface About extends BasePageConfig {
     /** List of technical skills */
     skills: Array<{
       /** Skill title */
-      
+
       /** Skill description */
       description?: React.ReactNode;
       /** Skill tags */

@@ -7,21 +7,13 @@
 
 /* Smooth theme transitions for light/dark mode switching */
 * {
-  transition: 
-    background-color 0.3s ease,
-    border-color 0.3s ease,
-    color 0.3s ease,
-    fill 0.3s ease,
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, fill 0.3s ease,
     stroke 0.3s ease;
 }
 
 /* Exclude certain properties from theme transition to avoid conflicts */
 *:where(:not(:has(> *))) {
-  transition: 
-    background-color 0.3s ease,
-    border-color 0.3s ease,
-    color 0.3s ease,
-    fill 0.3s ease,
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, fill 0.3s ease,
     stroke 0.3s ease;
 }
 
@@ -29,7 +21,7 @@
 [style*="transform"],
 [class*="hover"],
 [class*="active"] {
-  transition: 
+  transition:
     background-color 0.3s ease,
     border-color 0.3s ease,
     color 0.3s ease,
@@ -45,7 +37,7 @@
 }
 .project-media:hover {
   transform: translateY(-6px) scale(1.03);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
 }
 
 /* Subtle reveal for headings when JS loads */
@@ -101,7 +93,7 @@
   opacity: 1;
 }
 
-/* Enhance the mask visual effect */  
+/* Enhance the mask visual effect */
 [data-theme="dark"] [class*="mask"] {
   filter: brightness(var(--mask-brightness, 2)) !important;
   opacity: var(--mask-opacity, 0.7) !important;

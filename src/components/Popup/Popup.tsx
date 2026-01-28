@@ -3,7 +3,8 @@
 import { useEffect, useState } from "react";
 import { Button, Column, Heading, Text } from "@once-ui-system/core";
 import styles from "./Popup.module.scss";
-import { track } from '@vercel/analytics';
+import { track } from "@vercel/analytics";
+import posthog from "posthog-js";
 
 interface PopupProps {
   display: boolean;
@@ -17,7 +18,7 @@ export const Popup: React.FC<PopupProps> = ({ display, title, description }) => 
   useEffect(() => {
     // Check if popup was dismissed in this session
     const popupDismissed = sessionStorage.getItem("popup-dismissed");
-    
+
     if (display && !popupDismissed) {
       // Small delay for better UX
       setTimeout(() => setIsVisible(true), 500);
@@ -28,7 +29,10 @@ export const Popup: React.FC<PopupProps> = ({ display, title, description }) => 
     setIsVisible(false);
     // Store dismissal in sessionStorage (cleared when browser closes)
     sessionStorage.setItem("popup-dismissed", "true");
-    track('Pop up closed', {}, { flags: ['cv-popup-closed'] });
+    track("Pop up closed", {}, { flags: ["cv-popup-closed"] });
+    posthog.capture("popup_dismissed", {
+      popup_title: title,
+    });
   };
 
   if (!isVisible) return null;
@@ -36,15 +40,15 @@ export const Popup: React.FC<PopupProps> = ({ display, title, description }) => 
   return (
     <>
       {/* Backdrop */}
-      <div 
-        className={styles.backdrop} 
+      <div
+        className={styles.backdrop}
         onClick={handleClose}
-        onKeyDown={(e) => e.key === 'Escape' && handleClose()}
+        onKeyDown={(e) => e.key === "Escape" && handleClose()}
         role="button"
         tabIndex={0}
         aria-label="Close popup"
       />
-      
+
       {/* Popup */}
       <div className={styles.popup}>
         <Column
@@ -60,12 +64,7 @@ export const Popup: React.FC<PopupProps> = ({ display, title, description }) => 
           <Text variant="body-default-m" onBackground="neutral-weak">
             {description}
           </Text>
-          <Button
-            onClick={handleClose}
-            label="Got it"
-            variant="primary"
-            size="m"
-          />
+          <Button onClick={handleClose} label="Got it" variant="primary" size="m" />
         </Column>
       </div>
     </>

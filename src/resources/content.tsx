@@ -13,9 +13,8 @@ const person: Person = {
   email: "logan@loganwaller.dev",
   location: "Europe/London",
   languages: [],
-  github: "Mystik01"
+  github: "Mystik01",
 };
-
 
 const social: Social = [
   { name: "GitHub", icon: "github", link: "https://github.com/Mystik01" },
@@ -30,7 +29,8 @@ const social: Social = [
 const popup: Popup = {
   display: true,
   title: "Hello",
-  description: "Thanks for coming. This is my first React project. i'm pretty proud of it but there might be some bugs, there shouldn't be though.",
+  description:
+    "Thanks for coming. This is my first React project. i'm pretty proud of it but there might be some bugs, there shouldn't be though.",
 };
 
 // =============================================================================
@@ -48,56 +48,80 @@ const about: About = {
     title: "Introduction",
     description: (
       <>
-        Hello, I'm Logan, a student at Farnborough College of Technology studying T Level Digital Production, Design and Development. 
-        I specialize in software engineering and web development, with a growing interest in cybersecurity. 
-        As a self-taught developer, I'm passionate about building full-stack applications and continuously expanding my technical skillset.
+        Hello, I'm Logan, a student at Farnborough College of Technology studying T Level Digital
+        Production, Design and Development. I specialize in software engineering and web
+        development, with a growing interest in cybersecurity. As a self-taught developer, I'm
+        passionate about building full-stack applications and continuously expanding my technical
+        skillset.
       </>
     ),
-    },
-    work: {
+  },
+  work: {
     display: true,
     title: "Work Experience",
     description: "My current and upcoming work experiences.",
     experiences: [
       {
-      company: "Qualcomm",
-      timeframe: "May 2026 - July 2026 (Confirmed)",
-      role: "Industry Placement",
-      description: (
-        <>
-        I have secured a 9-week industry placement at <a href='https://www.qualcomm.com/' target='_blank' rel="noreferrer">Qualcomm</a>. I will collaborate with Mobile, Automotive, and IoT working groups, supporting 5G device testing and hardware validation. Working alongside software and hardware engineers, I'll benchmark solutions for efficiency and scalability while reviewing designs and code.
-        </>
-      ),
-      highlighted: true,
+        company: "Qualcomm",
+        timeframe: "May 2026 - July 2026 (Confirmed)",
+        role: "Industry Placement",
+        description: (
+          <>
+            I have secured a 9-week industry placement at{" "}
+            <a href="https://www.qualcomm.com/" target="_blank" rel="noreferrer">
+              Qualcomm
+            </a>
+            . I will collaborate with Mobile, Automotive, and IoT working groups, supporting 5G
+            device testing and hardware validation. Working alongside software and hardware
+            engineers, I'll benchmark solutions for efficiency and scalability while reviewing
+            designs and code.
+          </>
+        ),
+        highlighted: true,
       },
       {
-      company: "Everyone Active",
-      timeframe: "2023 - Present (Part-Time)",
-      role: "Lifeguard",
-      description: (
-        <>
-        As a lifeguard, I ensure the safety of all pool users by monitoring activities, enforcing safety rules, and responding to emergencies promptly and effectively.
-        {'\n'}As part of of being a lifeguard I had to complete the{' '}
-        <a href="https://www.rlss.org.uk/national-pool-lifeguard-qualification" target="_blank" rel="noopener noreferrer">
-          National Pool Lifeguarding Qualification (NPLQ)
-        </a>.
-        </>
-      ),
+        company: "Everyone Active",
+        timeframe: "2023 - Present (Part-Time)",
+        role: "Lifeguard",
+        description: (
+          <>
+            As a lifeguard, I ensure the safety of all pool users by monitoring activities,
+            enforcing safety rules, and responding to emergencies promptly and effectively.
+            {"\n"}As part of of being a lifeguard I had to complete the{" "}
+            <a
+              href="https://www.rlss.org.uk/national-pool-lifeguard-qualification"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              National Pool Lifeguarding Qualification (NPLQ)
+            </a>
+            .
+          </>
+        ),
       },
       {
-      company: "Bp",
-      timeframe: "2023 - Present (Part-Time)",
-      role: "Retail Assistant",
-      description: 'At Bp, I help stock the store, manage fuel authorizations, and provide excellent customer service to ensure a positive experience for all customers.',
+        company: "Bp",
+        timeframe: "2023 - Present (Part-Time)",
+        role: "Retail Assistant",
+        description:
+          "At Bp, I help stock the store, manage fuel authorizations, and provide excellent customer service to ensure a positive experience for all customers.",
       },
     ],
-    },
-    studies: {
+  },
+  studies: {
     display: true,
     title: "Studies",
     institutions: [
-      { name: "Farnborough College of Technology", timeframe: "Sept. 2024 - July 2026", description: <>T Level Digital Production, Design and Developments</> },
-      { name: "HSDC Alton", timeframe: "Sept. 2023 - July 2024", description: <>Level 2 Cambridge Technical Diploma in IT</> },
+      {
+        name: "Farnborough College of Technology",
+        timeframe: "Sept. 2024 - July 2026",
+        description: <>T Level Digital Production, Design and Developments</>,
+      },
+      {
+        name: "HSDC Alton",
+        timeframe: "Sept. 2023 - July 2024",
+        description: <>Level 2 Cambridge Technical Diploma in IT</>,
+      },
     ],
   },
   technical: {
@@ -111,9 +135,9 @@ const about: About = {
           { name: "Next.js", icon: "nextjs" },
           { name: "Supabase", icon: "supabase" },
           { name: "TypeScript", icon: "typescript" },
-          { name: "SQL", icon: "sql"},
+          { name: "SQL", icon: "sql" },
           { name: "Git", icon: "git" },
-          { name: "React", icon: "react" }
+          { name: "React", icon: "react" },
         ],
       },
     ],
@@ -172,7 +196,8 @@ const sections: SectionConfig[] = [
       {
         url: "https://github.com/Mystik01/magic-portfolio",
         title: "This portfolio website",
-        description: "A fork of Magic portfolio template, heavily modified though using Once UI. This is my first React project.",
+        description:
+          "A fork of Magic portfolio template, heavily modified though using Once UI. This is my first React project.",
       },
       {
         url: "https://github.com/Mystik01/FlappyBird",
@@ -186,14 +211,13 @@ const sections: SectionConfig[] = [
       },
       {
         url: "https://github.com/Mystik01/toka-fitness",
-        title: 'Toka Fitness',
+        title: "Toka Fitness",
         description: `A full-stack fitness tracking app built for a college project. Uses a Next.js frontend with
-a Flask API and Supabase authentication/database.`
-      }
+a Flask API and Supabase authentication/database.`,
+      },
     ],
   },
   {
-    
     id: "work",
     label: "Work",
     title: about.work.title,
@@ -201,7 +225,7 @@ a Flask API and Supabase authentication/database.`
     type: "work",
     display: about.work.display,
   },
-  
+
   // Example: Add a new section here
   // {
   //   id: "blog",

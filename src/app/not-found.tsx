@@ -38,8 +38,7 @@ export default function NotFound() {
       </Heading>
       <Text onBackground="neutral-weak" align="center">
         The page you are looking for does not exist.
-        <br />
-        I only have 1 page — redirecting you in {seconds}s.
+        <br />I only have 1 page — redirecting you in {seconds}s.
       </Text>
     </Column>
   );
