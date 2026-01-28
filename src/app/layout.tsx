@@ -4,6 +4,7 @@ import "@/resources/custom.css";
 
 import classNames from "classnames";
 import type { Metadata } from "next";
+import Script from "next/script";
 
 //Vercel
 import { Analytics } from "@vercel/analytics/next";
@@ -22,6 +23,7 @@ import { Suspense } from "react";
 export default async function RootLayout({children,}: Readonly<{children: React.ReactNode;}>){
   const gaId = process.env.NEXT_PUBLIC_GA_ID;
   return (
+    
     <Flex
       suppressHydrationWarning
       as="html"
@@ -34,7 +36,6 @@ export default async function RootLayout({children,}: Readonly<{children: React.
         fonts.code.variable
       )}
     >
-      {/* ThemeInit runs client-side to initialize theme/data attributes */}
       <Providers>
         <ThemeInit />
         <Column
@@ -46,6 +47,14 @@ export default async function RootLayout({children,}: Readonly<{children: React.
           padding="0"
           horizontal="center"
         >
+          <Script
+            src="https://cloud.umami.is/script.js"
+            data-website-id="f5fa7565-2a8c-40f1-8b04-9eb601c83734"
+            strategy="afterInteractive"
+          />
+          {gaId && <GoogleAnalytics gaId={gaId} />}
+          <Analytics />
+          <SpeedInsights />
           <RevealFx fill position="absolute">
             <Background
               mask={{
@@ -92,13 +101,10 @@ export default async function RootLayout({children,}: Readonly<{children: React.
           <NavOnHomeOnly />
           <Flex zIndex={0} fillWidth padding="l" horizontal="center" flex={1}>
             <Flex horizontal="center" fillWidth minHeight="0">
-              <Analytics />
-              <SpeedInsights />
               <Suspense fallback={null}>
                 <Tracker />
               </Suspense>
               {children}
-              {gaId && <GoogleAnalytics gaId={gaId} />}
             </Flex>
           </Flex>
           <Footer />
