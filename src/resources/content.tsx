@@ -96,31 +96,23 @@ const about: About = {
         ),
       },
       {
-        company: "Everyone Active",
-        timeframe: "2023 - Present (Part-Time)",
-        role: "Lifeguard",
+        company: "Everyone Active & Bp",
+        timeframe: "2023 - Aug. 2026 (Part-Time)",
+        role: "First jobs: Lifeguard & Retail Assistant",
         description: (
           <>
-            As a lifeguard, I ensure the safety of all pool users by monitoring activities,
-            enforcing safety rules, and responding to emergencies promptly and effectively.
-            {"\n"}As part of of being a lifeguard I had to complete the{" "}
+            Part-time work alongside college, until I started at Simplyhealth. As a lifeguard at
+            Everyone Active I was responsible for pool safety and emergency response, holding the{" "}
             <a
               href="https://www.rlss.org.uk/national-pool-lifeguard-qualification"
               target="_blank"
               rel="noopener noreferrer"
             >
-              National Pool Lifeguarding Qualification (NPLQ)
+              NPLQ
             </a>
-            .
+            . At Bp I handled customer service, stock and fuel authorisations.
           </>
         ),
-      },
-      {
-        company: "Bp",
-        timeframe: "2023 - Aug. 2026 (Part-Time)",
-        role: "Retail Assistant",
-        description:
-          "At Bp, I stocked the store, managed fuel authorisations and provided customer service. It was my first job, which I held from age 16 until starting my apprenticeship.",
       },
     ],
   },
