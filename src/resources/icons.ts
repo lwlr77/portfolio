@@ -51,6 +51,10 @@ import {
   FaReact,
 } from "react-icons/fa6";
 
+import { VscAzure } from "react-icons/vsc";
+
+import { TbBolt, TbMasksTheater, TbApi } from "react-icons/tb";
+
 export const iconLibrary: Record<string, IconType> = {
   arrowUpRight: HiArrowUpRight,
   arrowRight: HiArrowRight,
@@ -91,6 +95,10 @@ export const iconLibrary: Record<string, IconType> = {
   git: FaGitAlt,
   react: FaReact,
   credly: SiCredly,
+  azure: VscAzure,
+  azureFunctions: TbBolt,
+  playwright: TbMasksTheater,
+  api: TbApi,
 };
 
 export type IconLibrary = typeof iconLibrary;

@@ -8,7 +8,7 @@ const person: Person = {
   firstName: "Logan",
   lastName: "Waller",
   name: "Logan Waller",
-  role: "Technology Student",
+  role: "Backend Software Engineer",
   avatar: "/images/profile.jpeg",
   email: "logan@loganwaller.dev",
   location: "Europe/London",
@@ -30,7 +30,7 @@ const popup: Popup = {
   display: true,
   title: "Hello",
   description:
-    "Thanks for coming. This is my first React project. i'm pretty proud of it but there might be some bugs, there shouldn't be though.",
+    "Thanks for stopping by! This site is built with Next.js and Once UI. Have a look around.",
 };
 
 // =============================================================================
@@ -48,11 +48,12 @@ const about: About = {
     title: "Introduction",
     description: (
       <>
-        Hello, I'm Logan, a student at Farnborough College of Technology studying T Level Digital
-        Production, Design and Development. I specialize in software engineering and web
-        development, with a growing interest in cybersecurity. As a self-taught developer, I'm
-        passionate about building full-stack applications and continuously expanding my technical
-        skillset.
+        Hi, I'm Logan, a backend software engineer at Simplyhealth, where I'm completing a Level 6
+        Digital and Technology Solutions degree apprenticeship with the University of Exeter. I work
+        on the API side, building and testing the services behind Simplyhealth's products in
+        TypeScript on Azure Functions, with automated testing in Playwright. Outside of work I build
+        full-stack projects with Next.js and Python, and I'm exploring AI agent frameworks and
+        applied AI.
       </>
     ),
   },
@@ -62,22 +63,37 @@ const about: About = {
     description: "My current and upcoming work experiences.",
     experiences: [
       {
-        company: "Qualcomm",
-        timeframe: "May 2026 - July 2026 (Confirmed)",
-        role: "Industry Placement",
+        company: "Simplyhealth",
+        timeframe: "Sept. 2026 - Present",
+        role: "Software Engineer (Degree Apprentice) - Backend",
         description: (
           <>
-            I have secured a 9-week industry placement at{" "}
-            <a href="https://www.qualcomm.com/" target="_blank" rel="noreferrer">
-              Qualcomm
+            I'm a backend engineer on the API side at{" "}
+            <a href="https://www.simplyhealth.co.uk/" target="_blank" rel="noreferrer">
+              Simplyhealth
             </a>
-            . I will collaborate with Mobile, Automotive, and IoT working groups, supporting 5G
-            device testing and hardware validation. Working alongside software and hardware
-            engineers, I'll benchmark solutions for efficiency and scalability while reviewing
-            designs and code.
+            . I build and maintain serverless services in TypeScript on Azure Functions, write
+            automated tests with Playwright, and ship changes through a develop, main, pre-prod and
+            production release pipeline, with work tracked in Jira. Alongside the role I'm studying
+            for a Level 6 Digital and Technology Solutions degree with the University of Exeter.
           </>
         ),
         highlighted: true,
+      },
+      {
+        company: "Qualcomm",
+        timeframe: "May 2026 - July 2026",
+        role: "Industry Placement",
+        description: (
+          <>
+            A 9-week T Level industry placement with the customer engineering team at{" "}
+            <a href="https://www.qualcomm.com/" target="_blank" rel="noreferrer">
+              Qualcomm
+            </a>{" "}
+            in Farnborough, working on robotics, edge AI benchmarking and computer vision alongside
+            software and hardware engineers.
+          </>
+        ),
       },
       {
         company: "Everyone Active",
@@ -101,10 +117,10 @@ const about: About = {
       },
       {
         company: "Bp",
-        timeframe: "2023 - Present (Part-Time)",
+        timeframe: "2023 - Aug. 2026 (Part-Time)",
         role: "Retail Assistant",
         description:
-          "At Bp, I help stock the store, manage fuel authorizations, and provide excellent customer service to ensure a positive experience for all customers.",
+          "At Bp, I stocked the store, managed fuel authorisations and provided customer service. It was my first job, which I held from age 16 until starting my apprenticeship.",
       },
     ],
   },
@@ -113,9 +129,16 @@ const about: About = {
     title: "Studies",
     institutions: [
       {
+        name: "University of Exeter",
+        timeframe: "Sept. 2026 - July 2029",
+        description: (
+          <>Level 6 Digital and Technology Solutions Professional degree apprenticeship</>
+        ),
+      },
+      {
         name: "Farnborough College of Technology",
         timeframe: "Sept. 2024 - July 2026",
-        description: <>T Level Digital Production, Design and Developments</>,
+        description: <>T Level Digital Production, Design and Development</>,
       },
       {
         name: "HSDC Alton",
@@ -130,14 +153,18 @@ const about: About = {
     skills: [
       {
         tags: [
+          { name: "TypeScript", icon: "typescript" },
+          { name: "Azure", icon: "azure" },
+          { name: "Azure Functions", icon: "azureFunctions" },
+          { name: "Playwright", icon: "playwright" },
+          { name: "REST APIs", icon: "api" },
           { name: "Python", icon: "python" },
           { name: "JavaScript", icon: "javascript" },
-          { name: "Next.js", icon: "nextjs" },
-          { name: "Supabase", icon: "supabase" },
-          { name: "TypeScript", icon: "typescript" },
-          { name: "SQL", icon: "sql" },
-          { name: "Git", icon: "git" },
           { name: "React", icon: "react" },
+          { name: "Next.js", icon: "nextjs" },
+          { name: "SQL", icon: "sql" },
+          { name: "Supabase", icon: "supabase" },
+          { name: "Git", icon: "git" },
         ],
       },
     ],
@@ -194,10 +221,10 @@ const sections: SectionConfig[] = [
     display: true,
     links: [
       {
-        url: "https://github.com/Mystik01/magic-portfolio",
+        url: "https://github.com/Mystik01/portfolio",
         title: "This portfolio website",
         description:
-          "A fork of Magic portfolio template, heavily modified though using Once UI. This is my first React project.",
+          "My first React project: a heavily modified fork of the Magic Portfolio template, built with Next.js and Once UI and deployed on Vercel.",
       },
       {
         url: "https://github.com/Mystik01/FlappyBird",
